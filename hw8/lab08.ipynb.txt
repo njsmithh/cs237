@@ -1,0 +1,318 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Lab 08\n",
+    "\n",
+    "This is a set of problems which focus on goodness-of-fit tests for various models of data. \n",
+    "\n",
+    "<b>This lab is due Tuesday 6/26 at midnight. You will have a homework (the last one!) to go with this material.  </b>\n",
+    " \n",
+    "\n",
+    "<b>Be sure to select Run All from the Cell menu before submitting this notebook as your solution!</b>\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 42,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "# Jupyter notebook specific \n",
+    "from IPython.display import Image\n",
+    "from IPython.core.display import HTML \n",
+    "from IPython.display import display_html\n",
+    "from IPython.display import display\n",
+    "from IPython.display import Math\n",
+    "from IPython.display import Latex\n",
+    "from IPython.display import HTML \n",
+    "\n",
+    "# General useful imports\n",
+    "import numpy as np\n",
+    "from numpy import log,arange,linspace,mean, var, std,exp\n",
+    "from scipy.special import comb\n",
+    "from mpl_toolkits.mplot3d import Axes3D\n",
+    "import matplotlib.pyplot as plt \n",
+    "import matplotlib.mlab as mlab\n",
+    "from numpy.random import seed,random, randint, uniform, choice, binomial, geometric, poisson, exponential, normal \n",
+    "import math\n",
+    "from collections import Counter\n",
+    "import pandas as pd\n",
+    "%matplotlib inline\n",
+    "\n",
+    "\n",
+    "# Numpy basic stats functions\n",
+    "\n",
+    "# https://docs.scipy.org/doc/numpy-1.13.0/reference/routines.statistics.html\n",
+    "\n",
+    "X = [1,2,3]\n",
+    "\n",
+    "# mean of a list\n",
+    "mean(X)\n",
+    "\n",
+    "# population variance\n",
+    "var(X)\n",
+    "\n",
+    "# sample variance\n",
+    "var(X,ddof=1)\n",
+    "\n",
+    "# population standard deviation\n",
+    "std(X)\n",
+    "\n",
+    "# sample standard deviation\n",
+    "std(X,ddof=1)\n",
+    "\n",
+    "# Scipy statistical functions\n",
+    "\n",
+    "from scipy.stats import norm,expon,chi2 \n",
+    "\n",
+    "# https://docs.scipy.org/doc/scipy/reference/stats.html\n",
+    "\n",
+    "# The following will work with norm replaced by expon or by chi2\n",
+    "\n",
+    "# given random variable X (e.g., housing prices) normally distributed with  mu = 60, sigma = 40\n",
+    "\n",
+    "\n",
+    "# pdf of the distribution\n",
+    "norm.pdf(x=50,loc=60,scale=40)\n",
+    "chi2.pdf(x=10,df=5)\n",
+    "\n",
+    "#a. Find P(X<50)\n",
+    "norm.cdf(x=50,loc=60,scale=40) # 0.4012936743170763\n",
+    "chi2.cdf(x=10,df=5)\n",
+    "\n",
+    "#a. Find P(X>50)\n",
+    "norm.sf(x=50,loc=60,scale=40) # 0.4012936743170763\n",
+    "chi2.sf(x=10,df=5)\n",
+    "\n",
+    "#c. Find P(60<X<80)\n",
+    "norm.cdf(x=80,loc=60,scale=40) - norm.cdf(x=60,loc=60,scale=40)\n",
+    "\n",
+    "#d. how much top most 5% expensive house cost at least? or find x where P(X>x) = 0.05\n",
+    "norm.isf(q=0.05,loc=60,scale=40)\n",
+    "\n",
+    "#e. how much top most 5% cheapest house cost at least? or find x where P(X<x) = 0.05\n",
+    "norm.ppf(q=0.05,loc=60,scale=40)\n",
+    "\n",
+    "#f give the endpoints of the range for the central alpha percent of the distribution\n",
+    "norm.interval(alpha=0.3, loc=60, scale=140)\n",
+    "\n",
+    "# Same for exponential distribution\n",
+    "beta = 5    # mean of distribution\n",
+    "\n",
+    "\n",
+    "\n",
+    "# Utility functions\n",
+    "\n",
+    "# Round to 4 decimal places\n",
+    "def round4(x):\n",
+    "    return round(float(x)+0.00000000001,4)\n",
+    "\n",
+    "def round4List(x):\n",
+    "    return [round(float(x)+0.00000000001,4) for x in X]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Problem One (Chi-Squared Hypothesis Testing -- Uniform Distribution)\n",
+    "\n",
+    "For this first problem you will write code to test a set of data for the uniform distribution using the Chi-Squared hypothesis test. \n",
+    "\n",
+    "## Part A\n",
+    "\n",
+    "Write a function which returns the p-value for a set of data to test the hypothesis that the data follows a uniform (equiprobable) distribution. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 43,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "def get_chi2_uniform_p_value(Obs):\n",
+    "    pass\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Now test your function on Example B.1 on p.285 of Schaum's (same as we went over in class) and confirm that you get the correct p-value."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 44,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "0.343\n"
+     ]
+    }
+   ],
+   "source": [
+    "# should be 0.343\n",
+    "Obs = [80,65,70,85]\n",
+    "p = get_chi2_uniform_p_value(Obs)\n",
+    "print(round4(p))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Part B\n",
+    "\n",
+    "Now write a function which performs the test to the given level of significance and prints out the p-value and the result of the test (reject or fail to reject). \n",
+    "\n",
+    "Test the function on the data given above. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 45,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "H0 = the data follows a uniform distribution.\n",
+      "p-value = 0.343\n",
+      "Failure to reject the hypothesis at a 0.05 level of significance.\n"
+     ]
+    }
+   ],
+   "source": [
+    "def do_chi2_hyp_test_uniform(Obs,los):\n",
+    "    pass"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Problem Two (Chi-Squared Hypothesis Testing -- Binomial Distribution)\n",
+    "\n",
+    "For this problem, we would like you to repeat the previous problem, but adapted to follow the binomial distribution. Note that you will need to calculate the theoretical distributiuon for B(N,p) in order to\n",
+    "do the test. \n",
+    "\n",
+    "## Part A\n",
+    "\n",
+    "Write a function B(N,p) which returns the theoretical distribution for the binomial. You may use the function comb(n,k) from the scipy.special library to find C(n,k). \n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 46,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def B(N,p):\n",
+    "    pass\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Part B\n",
+    "\n",
+    "Now fill in the function stubs below to calculate the p-value for testing a set of data for the\n",
+    "binomial distribution. It is assumed that Obs is a set of frequencies representing the outcomes [0, 1, ..., N], where N = len(Obs). Therefore you only need to give the parameter p for the binomial being tested. \n",
+    "\n",
+    "Notes:\n",
+    "\n",
+    "  - you will need to calculate the Binomial probabilities and multiply them by the total number of outcomes (the sum of Obs);\n",
+    "  - The length of Obs is NOT the same as the N in B(N,p), why?\n",
+    "\n",
+    "Test it on the observed data in Example B.5 from Schaum's.  NOTE: There is a typo (of course!) in this\n",
+    "example, the probability p should be 0.3, not 0.7. Also, since you will be doing a precise calculation, you will get numbers more precise than in the Scaum's example; you should get a $X^2$ statistic of 5.3649 and a p-value of 0.2519."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 53,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[0.24009999999999995, 0.41159999999999991, 0.2646, 0.075599999999999987, 0.0080999999999999996]\n",
+      "0.251864666317\n"
+     ]
+    }
+   ],
+   "source": [
+    "def get_chi2_binomial_p_value(Obs,p):\n",
+    "    pass\n",
+    "\n",
+    "Obs = [130,240,170,52,8]\n",
+    "\n",
+    "print(get_chi2_binomial_p_value(Obs,0.3))\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Part C\n",
+    "\n",
+    "Now write a function which performs the chi-squared test for the binomial as in the previous problem, and test it on the example B.5 from Schaum's. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 48,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "H0 = the data follows the binomial distribution B(5,0.3)\n",
+      "p-value = 0.2519\n",
+      "Failure to reject the hypothesis at a 0.1 level of significance.\n"
+     ]
+    }
+   ],
+   "source": [
+    "def do_chi2_hyp_test_binomial(Obs,p,los):\n",
+    "    pass"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.6.2"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
